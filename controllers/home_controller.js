@@ -17,7 +17,6 @@ module.exports.lol = function(req, res){
 }
 
 module.exports.addTask = function(req, res){
-    console.log(req.body)
     Task.create(
         { 
             task: req.body.task,
@@ -47,10 +46,8 @@ module.exports.delTask = function(req, res){
 }
 
 module.exports.filterTasks = function(req, res){
-    console.log(req.query);
 
     Task.find({ category: req.query.category, priority: req.query.priority }).then(tasks => {
-        console.log(tasks);
         return res.render('home', {
             title: "filtered Tasks",
             tasks: tasks,
@@ -60,9 +57,7 @@ module.exports.filterTasks = function(req, res){
 }
 
 module.exports.filterCat = function(req, res){
-    console.log(req.params);
     Task.find({ category: req.params.category }).then(tasks => {
-        console.log(tasks);
         return res.render('home', {
             title: "filtered Tasks",
             tasks: tasks,
