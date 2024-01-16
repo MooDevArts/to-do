@@ -3,10 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
     <title><%= title %></title>
 </head>
 <body>
-    <h1><%= title %></h1>
-    <h1>Hello</h1>
+    <h1>Web App - <%= title %></h1>
+    <div class = "grid-2">
+      <div>
+    <h2>Add a task</h2>
+    <form action="/add-task" method="POST">
+        <label for="task">Enter your task:</label><br>
+        <input type="text" id="task" name="task" required><br>
+        <label>Category</label><br>
+        <select name="category">
+          <option value="work" selected>Work</option>
+          <option value="personal">Personal</option>
+          <option value="educational">Educational</option>
+        </select><br>
+        <label>Priority</label><br>
+        <select name="priority">
+          <option value="low" selected>Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select><br>
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
+    <div>
+      <h2>Filter Tasks</h2>
+      <form action="/filter-tasks" method="GET">
+        <label>Category</label><br>
+        <select name="category">
+          <option value="work" selected>Work</option>
+          <option value="personal">Personal</option>
+          <option value="educational">Educational</option>
+        </select><br>
+        <label>Priority</label><br>
+        <select name="priority">
+          <option value="low" selected>Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select><br>
+        <button type="submit">Filter Tasks</button>
+      </form>
+    </div>
+    </div>
+      <div class = "flex-apart"><h2><%= definition %></h2> <a href = "/" class = "show-all">Show all tasks</a></div>
+      <ol>
+        <% if (tasks.length == 0){ %>
+          No such tasks found
+          <% } %>
+        <% for (let i = 0; i < tasks.length; i++) { %>
+        <li class = "<%= tasks[i].priority %>">
+         <div class = "left wide-item"><%= tasks[i].task %></div>
+         <div class = "hover"><a href = "/filter-category/<%= tasks[i].category%>" class = "tag <%= tasks[i].category %>"><%= tasks[i].category %></a></div>
+         <div class = "right"><a href = "/delete-task/<%= tasks[i]._id %>" class = "delete">Delete</a></div>
+        </li>
+        <% } %>
+      </ol>
 </body>
 </html>
